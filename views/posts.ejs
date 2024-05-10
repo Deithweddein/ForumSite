@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% if (post.comments.length > 0) { %>
+        <h2>Comments</h2>
+        <ul>
+          <% post.comments.forEach(comment => { %>
+            <li>
+              <b><%= comment.author.name %>:</b> <%= comment.content %>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+      
+      <form action="/comments" method="POST">
+        <input type="hidden" name="postId" value="<%= post._id %>">
+        <textarea name="content" placeholder="Write your comment"></textarea>
+        <button type="submit">Submit Comment</button>
+      </form>
+      
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body> 
+
+  <h1 class="text-center">Pirates Cove</h1>
+  <br><br>
+ 
+  <br><br><br><br>
+  <div class="container">
+
+    <form action="/search" method="get" class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search Discussions" aria-label="Search" name="query">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    
+    <% if (user) { %>  
+      <p>Welcome, <%= user.name %>!</p> 
+    <% } %>
+    <form action="/logout" method="post">
+      <button>Logout</button>
+    </form>
+    
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias similique laudantium earum explicabo voluptate placeat quasi sapiente. Quidem praesentium incidunt a unde. Incidunt laborum blanditiis nemo fuga non sunt cumque?</p>
+  </div>
+
+  <br><br><br>
+
+  <div class="container justify-content-center flex-row">
+    
+    <form action="/tableUrl" method="post" class="my-4 flex-row">
+      <label for="discussion">New discussion</label><br>
+      <input 
+        type="text"
+        name="tableUrl"
+        id="tableUrl"
+        class="form-control col mr-2"
+      /> <br> 
+      <input 
+      type="text"
+      name="discussUrl"
+      id="discussUrl"
+      class="form-control col mr-4 p-2"/> 
+      <br>
+      <button>Submit</button>
+    </form>
+    <br><br><br>
+    <form action="/remove" method="post">
+      <label for="input" class="">
+        Delete  all discussions
+      </label><br>
+      <button name="discDelete">Clear</button>
+    </form>
+    <table class="table table-striped table-responsive text-light">
+      <thead>
+        <tr>
+          <th>Discussion</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tableUrl.forEach(discussion => { %>
+          <tr>
+            <td><h1><%= discussion.Main || 'No Title' %></h1></td>
+        
+            <td><br><br><br><br>
+              <% if (discussion.user) { %>
+                <p>Created by: <%= discussion.user.name %></p>
+              <% } else { %>
+                <p>Created by: Deleted User</p>
+              <% } %>
+              <br>
+              <a href="<%= discussion.Main %>">Go to Discussion</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
